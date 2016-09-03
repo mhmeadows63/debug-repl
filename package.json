@@ -1,0 +1,29 @@
+{
+  "name": "debug-repl",
+  "version": "1.0.0",
+  "description": "A combination of the well-known debug module with an auto-launching repl and ordered shutdown logic",
+  "main": "index.js",
+  "scripts": {
+    "test": "DEBUG=test node test.js </dev/null"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhmeadows63/debug-repl.git"
+  },
+  "keywords": [
+    "debug",
+    "repl",
+    "shutdown",
+    "service"
+  ],
+  "author": "Martin Meadows <martin@netconfigs.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mhmeadows63/debug-repl/issues"
+  },
+  "homepage": "https://github.com/mhmeadows63/debug-repl#readme",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "scope-chain": "^1.0.1"
+  }
+}
