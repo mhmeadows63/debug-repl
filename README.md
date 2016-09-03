@@ -40,10 +40,10 @@ $ npm install debug-repl
 
 This module provides three elements that are often useful together:
 
-1) Automatic naming of `debug` functions that cope with code refactoring
-2) Activation of REPL in a NodeJS application under Development, but not in 
+  1. Automatic naming of `debug` functions that cope with code refactoring
+  2. Activation of REPL in a NodeJS application under Development, but not in 
 Production.
-3) Ordered clean shutdown of application components.
+  3. Ordered clean shutdown of application components.
 
 ## Detail
 
@@ -62,9 +62,9 @@ A REPL is spawned only if the following conditions are met:
 The `debug.shutdown` attribute is an dictionary-object to which functions can 
 be added by name. Application shutdown is triggered by any one of the following:
 
-1) quitting the REPL
-2) receipt of SIGTERM
-3) receipt of SIGINT
+  1. quitting the REPL
+  2. receipt of SIGTERM
+  3. receipt of SIGINT
 
 When the shutdown is triggered, all dictionary-keys are harvested from the 
 shutdown dictionary-object, sorted alpha-numerically and then executed in turn. 
