@@ -15,7 +15,7 @@ function shutdown(done) {
         if (!keys.length) return this();
         var key = keys.shift();
         debug(shutdown[key].name);
-        shutdown[key](callee.bind(this.ignore, keys));
+        shutdown[key](callee.bind(this, keys));
 
     }, function () {
         pidFd ? fs.close(pidFd, this.ignore) : this();
