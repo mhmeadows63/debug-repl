@@ -11,6 +11,9 @@ exports.timeout = setTimeout(debug.bind(null, exports.foo), 5000);
 // setup a function to be called on SIGTERM, SIGINT and repl-exit
 debug.shutdown['20timeout'] = function timeout(done) {
     exports.timeout = clearTimeout(exports.timeout);
+    done();
 };
 
-process.kill(process.pid, 'SIGHUP');
+process.on('SIGHUP', console.log.bind(console, 'reload'));
+setTimeout(process.kill.bind(process, process.pid, 'SIGHUP'), 1000);
+setTimeout(process.kill.bind(process, process.pid, 'SIGINT'), 3000);

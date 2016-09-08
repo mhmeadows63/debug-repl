@@ -14,7 +14,6 @@ function shutdown(done) {
     }, function callee(keys) {
         if (!keys.length) return this();
         var key = keys.shift();
-        debug(shutdown[key].name);
         shutdown[key](callee.bind(this, keys));
 
     }, function () {
@@ -24,7 +23,6 @@ function shutdown(done) {
         pidFile ? fs.unlink(pidFile, this.ignore) : this();
 
     }, function () {
-        debug('all-done', process.pid);
         this();
     });
 }
@@ -51,7 +49,7 @@ function debugRepl(module, name, norepl) {
 
 module.exports = debugRepl;
 
-process.on('SIGHUP', console.error.bind(console, 'reload')); // systemctl reload <service>
+process.on('SIGHUP', Function.prototype); // systemctl reload <service>
 process.once('SIGTERM', shutdown); // systemctl stop <service>
 process.once('SIGINT', shutdown); // console-app CTRL-C
 
@@ -63,7 +61,8 @@ process.nextTick(function () {
     chain(null, function () {
         fs.open(pidFile, 'w', parseInt(644, 8), this);
     }, function (fd) {
-        fs.write(pidFd = fd, process.pid + os.EOL, this);
+        var buffer = Buffer(process.pid + os.EOL);
+        fs.write(pidFd = fd, buffer, 0, buffer.length, null, this);
     }, function (written, string) {
         this();
     });
