@@ -18,6 +18,7 @@ exports.timeout = setTimeout(debug.bind(null, exports.foo), 5000);
 // setup a function to be called on SIGTERM, SIGINT and repl-exit
 debug.shutdown['20timeout'] = function timeout(done) {
     exports.timeout = clearTimeout(exports.timeout);
+    done(); // this is required for subsequent shutdown functions to be called
 };
 ```
 
