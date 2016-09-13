@@ -5,6 +5,8 @@ var fs = require('fs');
 var os = require('os');
 var path = require('path');
 
+var pidFile, pidFd;
+
 function shutdown(done) {
     if (shutdown._keys) return; // ignore repeated calls
     
@@ -27,6 +29,7 @@ function shutdown(done) {
     });
 }
 
+debugRepl.shutdown = shutdown;
 function debugRepl(module, name, norepl) {
     if (typeof name !== 'string') {
         norepl = name;
@@ -49,14 +52,13 @@ function debugRepl(module, name, norepl) {
 
 module.exports = debugRepl;
 
-process.on('SIGHUP', Function.prototype); // systemctl reload <service>
-process.once('SIGTERM', shutdown); // systemctl stop <service>
-process.once('SIGINT', shutdown); // console-app CTRL-C
-
-var pidFile, pidFd;
-process.nextTick(function () {
+process.mainModule && process.nextTick(function () {
     if (debugRepl.repl) return;
-    
+
+    process.on('SIGHUP', Function.prototype); // systemctl reload <service>
+    process.once('SIGTERM', shutdown); // systemctl stop <service>
+    process.once('SIGINT', shutdown); // console-app CTRL-C
+
     pidFile = '/run/' + path.basename(process.mainModule.filename, '.js') + '.pid'
     chain(null, function () {
         fs.open(pidFile, 'w', parseInt(644, 8), this);
