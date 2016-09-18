@@ -1,6 +1,10 @@
 #! /usr/bin/env node
 // require the the debug-repl module and this module
-var debug = require(__dirname + '/index')(module);
+var debug = require(__dirname + '/index');
+//debug.pidBase = 'foo';
+//debug.pidDir = '.';
+//debug.pidExt = '.bar';
+debug = debug(module);
 
 // set a module variable to be exported to the GLOBAL object
 exports.foo = 'bar';

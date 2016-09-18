@@ -58,7 +58,7 @@ A REPL is spawned only if the following conditions are met:
   * `norepl` is falsy (or absent)
   * STDIN is a TTY
   * STDOUT is a TTY
-  * the supplied module has no parent module (i.e. the application main module)
+  * the supplied module is the process.mainModule
   
 The `debug.shutdown` attribute is an dictionary-object to which functions can 
 be added by name. Application shutdown is triggered by any one of the following:
@@ -87,6 +87,10 @@ debug.shutdown['60database'] = function (done) {
 };
 ```
 
+If a function is assigned to the `debug` attribute on the `debug-repl` 
+module-object, then any parameters passed to the `done` callbacks are passed as 
+arguments to this function for possible logging.
+
 Once all shutdown functions have been called, the NodeJS event-engine should be
 free to exit. If any timer or i/o handles remain, the application will persist.
 
@@ -110,6 +114,14 @@ ExecReload=/usr/sbin/fuser -HUP -ks /run/example.pid
 [Install]
 WantedBy=multi-user.target
 ```
+
+The location and naming of the PID file can be modified by assiging one or more 
+of the following strings to the `debug-repl` module-object during application 
+startup:
+
+* `pidDir`  (default: '/run')
+* `pidBase` (default: basename of process.mainModule.filename)
+* `pidExt`  (default: '.pid')
 
 ## License
 
