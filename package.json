@@ -1,6 +1,6 @@
 {
   "name": "debug-repl",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A bundling of the well-known debug module with ordered shutdown logic and an auto-launching repl",
   "main": "index.js",
   "scripts": {
