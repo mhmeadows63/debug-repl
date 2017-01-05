@@ -25,6 +25,6 @@
   "homepage": "https://github.com/mhmeadows63/debug-repl#readme",
   "dependencies": {
     "debug": "^2.6.0",
-    "scope-chain": "^1.1.0"
+    "scope-chain": "^1.2.0"
   }
 }
